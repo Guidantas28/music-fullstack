@@ -1,17 +1,20 @@
 import { Box, Text, Flex } from '@chakra-ui/layout'
 import { Image } from '@chakra-ui/react'
 import GradientLayout from '../components/gradientLayout'
+import { useMe } from '../lib/hooks'
 import prisma from '../lib/prisma'
 
 const Home = ({ artists }) => {
+  const { user } = useMe()
+
   return (
     <GradientLayout
       image="https://avatars.githubusercontent.com/u/73999334?v=4"
       roundImage
       color="gray"
       subtitle="profile"
-      title="Guilherme Dantas"
-      description="3 public playlists"
+      title={`${user?.firstName} ${user?.lastName}`}
+      description={`${user?.playlistsCount} public playlists`}
     >
       <Box color="white" paddingX="40px">
         <Box marginBottom="40px">
