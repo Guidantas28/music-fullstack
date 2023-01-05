@@ -5,6 +5,7 @@ import NextImage from 'next/image'
 import { auth } from '../lib/mutations'
 
 const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
+  // const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -42,6 +43,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
               type="password"
               onChange={(e) => setPassword(e.target.value)}
             />
+
             <Button
               type="submit"
               bg="green.500"
@@ -62,3 +64,15 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
 }
 
 export default AuthForm
+
+/* 
+{mode
+              ? 'signup' && (
+                  <Input
+                    placeholder="First Name"
+                    type="name"
+                    onChange={(e) => setFirstName(e.target.value)}
+                  />
+                )
+              : 'singin' && <Input placeholder="teste" type="text" />}
+*/
