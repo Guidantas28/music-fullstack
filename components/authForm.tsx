@@ -5,7 +5,8 @@ import NextImage from 'next/image'
 import { auth } from '../lib/mutations'
 
 const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
-  // const [firstName, setFirstName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [lastName, setLastName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [isLoading, setIsLoading] = useState(false)
@@ -15,7 +16,7 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
     e.preventDefault()
     setIsLoading(true)
 
-    await auth(mode, { email, password })
+    await auth(mode, { email, password, firstName, lastName })
     setIsLoading(false)
     router.push('/')
   }
@@ -33,16 +34,43 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
       <Flex justify="center" align="center" height="calc(100vh - 100px)">
         <Box padding="50px" bg="gray.900" borderRadius="6px">
           <form onSubmit={handleSubmit}>
-            <Input
-              placeholder="email"
-              type="email"
-              onChange={(e) => setEmail(e.target.value)}
-            />
-            <Input
-              placeholder="password"
-              type="password"
-              onChange={(e) => setPassword(e.target.value)}
-            />
+            {(mode === 'signup' && (
+              <>
+                <Input
+                  placeholder="First Name"
+                  type="name"
+                  onChange={(e) => setFirstName(e.target.value)}
+                />
+                <Input
+                  placeholder="Last Name"
+                  type="name"
+                  onChange={(e) => setLastName(e.target.value)}
+                />
+                <Input
+                  placeholder="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                  placeholder="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </>
+            )) || (
+              <>
+                <Input
+                  placeholder="email"
+                  type="email"
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+                <Input
+                  placeholder="password"
+                  type="password"
+                  onChange={(e) => setPassword(e.target.value)}
+                />
+              </>
+            )}
 
             <Button
               type="submit"
@@ -64,15 +92,3 @@ const AuthForm: FC<{ mode: 'signin' | 'signup' }> = ({ mode }) => {
 }
 
 export default AuthForm
-
-/* 
-{mode
-              ? 'signup' && (
-                  <Input
-                    placeholder="First Name"
-                    type="name"
-                    onChange={(e) => setFirstName(e.target.value)}
-                  />
-                )
-              : 'singin' && <Input placeholder="teste" type="text" />}
-*/
