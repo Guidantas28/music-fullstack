@@ -33,6 +33,20 @@ const Player = ({ songs, activeSong }) => {
   const [repeat, setRepeat] = useState(false)
   const soundRef = useRef(null)
 
+  useEffect(() => {
+    let timerId
+
+    if (playing && !isSeeking) {
+      const f = () => {
+        setSeek(soundRef.current.seek())
+        timerId = requestAnimationFrame(f)
+      }
+      timerId = requestAnimationFrame(f)
+      return () => cancelAnimationFrame(timerId)
+    }
+    cancelAnimationFrame(timerId)
+  }, [playing, isSeeking])
+
   const setPlayState = (value) => {
     setPlaying(value)
   }
