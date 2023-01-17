@@ -1,49 +1,49 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql://"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int        @id @default(autoincrement())
-  email     String     @unique
-  password  String
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  firstName String?
-  lastName  String?
-  Playlists Playlist[]
+    id        Int        @id @default(autoincrement())
+    email     String     @unique
+    password  String
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    firstName String?
+    lastName  String?
+    Playlists Playlist[]
 }
 
 model Song {
-  id        Int        @id @default(autoincrement())
-  createdAt DateTime   @default(now())
-  updatedAt DateTime   @updatedAt
-  name      String
-  artistId  Int
-  duration  Int
-  url       String
-  artist    Artist     @relation(fields: [artistId], references: [id])
-  playlists Playlist[]
+    id        Int        @id @default(autoincrement())
+    createdAt DateTime   @default(now())
+    updatedAt DateTime   @updatedAt
+    name      String
+    artistId  Int
+    duration  Int
+    url       String
+    artist    Artist     @relation(fields: [artistId], references: [id])
+    playlists Playlist[]
 }
 
 model Artist {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String   @unique
-  songs     Song[]
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String   @unique
+    songs     Song[]
 }
 
 model Playlist {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  name      String
-  userId    Int
-  user      User     @relation(fields: [userId], references: [id])
-  songs     Song[]
+    id        Int      @id @default(autoincrement())
+    createdAt DateTime @default(now())
+    updatedAt DateTime @updatedAt
+    name      String
+    userId    Int
+    user      User     @relation(fields: [userId], references: [id])
+    songs     Song[]
 }
