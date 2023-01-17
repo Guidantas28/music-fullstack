@@ -134,9 +134,9 @@ const Player = ({ songs, activeSong }) => {
           <IconButton
             outline="none"
             variant="link"
-            aria-label="skip"
             fontSize="24px"
-            icons={<MdSkipPrevious />}
+            icon={<MdSkipPrevious />}
+            aria-label="skip"
             onClick={prevSong}
           />
           {playing ? (
@@ -192,7 +192,7 @@ const Player = ({ songs, activeSong }) => {
               min={0}
               id="player-range"
               colorScheme="green"
-              max={duration ? duration.toFixed(2) : 0}
+              max={duration ? (duration.toFixed(2) as unknown as number) : 0}
               onChange={onSeek}
               value={[seek]}
               onChangeStart={() => setIsSeeking(true)}
